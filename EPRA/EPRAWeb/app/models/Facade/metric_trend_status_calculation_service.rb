@@ -4,7 +4,6 @@ require "metric_trend_status_calculation.rb"
 module Facade
 	class MetricTrendStatusCalculationService
 
-
 		def get_metric_trend_status metric_value
       # Filter out future values for current metric
       # Then sort by metric age

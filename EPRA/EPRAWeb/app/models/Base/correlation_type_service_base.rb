@@ -2,8 +2,8 @@ require "service_base_initializer.rb"
 require "EPRA_entities.rb"
 
 module Base
-	class CorrelationTypeServiceBase
-    include
+  class CorrelationTypeServiceBase
+    include ServiceBaseInitializer
 		def initialize
       initialize_context
 		end
