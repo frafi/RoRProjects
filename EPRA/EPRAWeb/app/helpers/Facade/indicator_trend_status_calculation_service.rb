@@ -16,12 +16,8 @@ module Facade
       end
       @indicator_values.sort_by { |x| x.age  }
 
-      previous_indicator_value = nil
-      if @indicator_values.any?
-        previous_indicator_value = @indicator_values[-1]
-      end
-
-			unless previous_indicator_value.nil?
+      previous_indicator_value = @indicator_values[-1] if @indicator_values.any?
+      unless previous_indicator_value.nil?
 				indicator_trend_status_calculation = IndicatorTrendStatusCalculation.new
 				return indicator_trend_status_calculation.get_indicator_trend_status indicator_value, previous_indicator_value
 			else

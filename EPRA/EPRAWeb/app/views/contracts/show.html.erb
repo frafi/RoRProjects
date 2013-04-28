@@ -1,0 +1,41 @@
+<h2>Contract <%= @contract_id %> Details </h2>
+<table id="contractdata">
+  <tr>
+      <td class="emrcaption">Patient Name</td>
+      <td class="emrcaption">Status</td>
+      <td class="emrcaption">Responsible Party Name</td>
+      <td class="emrcaption">Responsible Party Address</td>
+  </tr>
+  <tr>
+      <td><%= @patient_name %></td>
+      <td><%= @contract_status %></td>
+      <%= fields_for :responsible_party do |r| %>
+        <td><%= r.label :name %></td>
+        <td id="resposiblepartyaddress">
+            <%= r.label :address_street1 %><br />
+            <%= r.label :address_street2 %><br />
+            <%= r.label :address_city %>,&nbsp;<%= r.label :address_state %><br />
+            <%= r.label :address_zipcode %>
+        </td>
+      <% end %>
+  </tr>
+</table>
+<h2>Transaction Details </h2>
+<table id="transactiondata">
+  <tr>
+    <thead class="emrcaption">Date</thead>
+    <thead class="emrcaption">Description</thead>
+    <thead class="emrcaption">Amount</thead>
+    <thead class="emrcaption">Type</thead>
+    <thead class="emrcaption">Comments</thead>
+  </tr>
+<%= fields_for :contract_transactions do |a| %>
+  <tr>
+  <td class="emrlabel"><%= a.label :transaction_date %></td>
+  <td class="emrlabel"><%= a.label :title %></td>
+  <td class="emrlabel"><%= a.label :amount %></td>
+  <td class="emrlabel"><%= a.label :transaction_type %></td>
+  <td class="emrlabel"><%= a.text_area :notes %></td>
+  </tr>
+<% end %>
+</table>

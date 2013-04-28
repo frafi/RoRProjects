@@ -2,7 +2,7 @@ require "metric_trend_status.rb"
 require "metric_trend_status_calculation.rb"
 
 module Facade
-	class MetricTrendStatusCalculationService
+  class MetricTrendStatusCalculationService
 
 		def get_metric_trend_status metric_value
       # Filter out future values for current metric
@@ -10,18 +10,14 @@ module Facade
       @metric_values = Array.new
       metric_value.metric.metric_values.each do |x|
         if (x.metric_id == metric_value.metric_id &&
-            x.view_id == metric_value.view_id &&
-            x.period_date < metric_value.period_date)
-            @metric_values.push x
+              x.view_id == metric_value.view_id &&
+              x.period_date < metric_value.period_date)
+          @metric_values.push x
         end
       end
-      @metric_values.sort_by { |x| x.age  }
+      @metric_values.sort_by { |x| x.age }
 
-      previous_metric_value = nil
-      if @metric_values.any?
-        previous_metric_value = @metric_values[-1]
-      end
-
+      previous_metric_value = @metric_values[-1] if @metric_values.any?
 			unless previous_metric_value.nil?
 				metric_trend_status_calculation = MetricTrendStatusCalculation.new
 				return metric_trend_status_calculation.get_metric_trend_status metric_value, previous_metric_value

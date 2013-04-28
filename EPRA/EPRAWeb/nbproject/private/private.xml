@@ -2,9 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/models/Domain/metric_trend_status.rb</file>
-        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/models/EPRA_ServiceBase/AGGREGATION_METHODServiceBase.rb</file>
-        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/models/EPRA_ServiceFacade/AGGREGATION_METHODService.rb</file>
-        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/models/Domain/domain_modifiers.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/controllers/application_controller.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/helpers/Base/aggregation_method_service_base.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/helpers/Domain/domain_modifiers.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/helpers/Facade/aggregation_method_service.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/models/participation.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/models/patient_encounter.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/controllers/patient_encounters_controller.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/db/seeds.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/helpers/Base/dimension_value_service_base.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/helpers/Base/correlation_type_service_base.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/helpers/Base/correlation_matrix_service_base.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/helpers/Base/service_base_initializer.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/config/routes.rb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/views/contracts/show.html.erb</file>
+        <file>file:/E:/RoRProjects/EPRA/EPRAWeb/app/views/layouts/application.html.erb</file>
     </open-files>
 </project-private>

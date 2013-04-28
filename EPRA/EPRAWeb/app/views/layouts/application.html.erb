@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EPRAWeb</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <title><%= title %></title>
+  <%= render 'layouts/stylesheets' %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/header' %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div class="emrmenu">
+    <%= render 'layouts/menu' %>
+  </div>
+  <div class="emrcontainer">
+    <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
 </body>
 </html>

@@ -26,7 +26,7 @@ module Base
 		end
 
 		def insert_correlation_type corr_type_id, corr_type, corr_type_description
-			correlation_type = correlation_type.new
+			correlation_type = CorrelationType.new
 			correlation_type.corr_type_id = corr_type_id
 			correlation_type.corr_type = corr_type
 			correlation_type.corr_type_description = corr_type_description

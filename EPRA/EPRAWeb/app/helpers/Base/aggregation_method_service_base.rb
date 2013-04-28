@@ -32,7 +32,7 @@ module Base
 		end
 
 		def insert_aggregation_method(method_name, aggreg_code, aggreg_description)
-			aggregation_method = Aggregation_method.new
+			aggregation_method = AggregationMethod.new
 			aggregation_method.name = method_name
 			aggregation_method.code = aggreg_code
 			aggregation_method.description = aggreg_description

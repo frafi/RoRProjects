@@ -2,7 +2,7 @@ require "service_base_initializer.rb"
 require "EPRA_entities.rb"
 
 module Base
-	class DimensionValueServiceBase
+  class DimensionValueServiceBase
     include ServiceBaseInitializer
 
     attr_accessor :context
@@ -21,7 +21,7 @@ module Base
         end
       end
 			if dimension_values.any?
-				return dimension_values.First
+				return dimension_values[0]
 			else
 				return nil
 			end
