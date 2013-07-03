@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  loop_id: 1
+  train_category: MyString
+  operates_day_1: false
+  operates_day_2: false
+  operates_day_3: false
+  operates_day_4: false
+  operates_day_5: false
+  operates_day_6: false
+  operates_day_7: false
+  operates_day_8: false
+  operates_day_9: false
+  operates_day_10: false
+  operates_day_11: false
+  operates_day_12: false
+  operates_day_13: false
+  operates_day_14: false
+
+two:
+  loop_id: 1
+  train_category: MyString
+  operates_day_1: false
+  operates_day_2: false
+  operates_day_3: false
+  operates_day_4: false
+  operates_day_5: false
+  operates_day_6: false
+  operates_day_7: false
+  operates_day_8: false
+  operates_day_9: false
+  operates_day_10: false
+  operates_day_11: false
+  operates_day_12: false
+  operates_day_13: false
+  operates_day_14: false

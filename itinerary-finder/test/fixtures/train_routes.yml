@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  train_id: 1
+  route_point_seq: 1
+  station_num: 1
+  station_name: MyString
+  arrive_time_hhhmm: 1
+  depart_time_hhhmm: 1
+
+two:
+  train_id: 1
+  route_point_seq: 1
+  station_num: 1
+  station_name: MyString
+  arrive_time_hhhmm: 1
+  depart_time_hhhmm: 1

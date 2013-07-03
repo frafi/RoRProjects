@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-ItineraryFinder::Application.config.secret_token = '651f2e6a9995701d6b0872f3e5fdae581ee4fbb5289fb27383a3d81c2dda8d162bb43e3bc031ca21031f2b716f6020728f070d5881d5dffa80cb3d8c213af434'
+ItineraryFinder::Application.config.secret_token = '48473511ad696326a400bbee4ddbdbfe348bfbe13ff85a9481df6da8fcf01b4fba679ee3f2d503b3c34a701ba35c111ab4917af72b03ffd5f437297b90b49fcf'

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  arc_type: MyString
+  from_node_id: 1
+  to_node_id: 1
+  transit_time: 1
+  train_id: 1
+
+two:
+  arc_type: MyString
+  from_node_id: 1
+  to_node_id: 1
+  transit_time: 1
+  train_id: 1

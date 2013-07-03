@@ -1,4 +1,16 @@
 ItineraryFinder::Application.routes.draw do
+  resources :arcs
+
+
+  resources :nodes
+
+
+  resources :train_routes
+
+
+  resources :trains
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
