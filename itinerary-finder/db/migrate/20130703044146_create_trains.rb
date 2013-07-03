@@ -1,4 +1,4 @@
-class CreateTrains < ActiveRecord::Migration
+class CreateTrains < ActiveRecord::Migration  
   def change
     create_table :trains do |t|
       t.integer :loop_id
@@ -20,5 +20,13 @@ class CreateTrains < ActiveRecord::Migration
 
       t.timestamps
     end
+  end
+
+  def self.up
+    change
+  end
+  
+  def self.down
+    drop_table :trains
   end
 end
