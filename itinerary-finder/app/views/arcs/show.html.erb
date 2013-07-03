@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Arc type:</b>
+  <%= @arc.arc_type %>
+</p>
+
+<p>
+  <b>From node:</b>
+  <%= @arc.from_node_id %>
+</p>
+
+<p>
+  <b>To node:</b>
+  <%= @arc.to_node_id %>
+</p>
+
+<p>
+  <b>Transit time:</b>
+  <%= @arc.transit_time %>
+</p>
+
+<p>
+  <b>Train:</b>
+  <%= @arc.train_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_arc_path(@arc) %> |
+<%= link_to 'Back', arcs_path %>

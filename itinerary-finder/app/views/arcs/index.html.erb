@@ -1,0 +1,31 @@
+<h1>Listing arcs</h1>
+
+<table>
+  <tr>
+    <th>Arc type</th>
+    <th>From node</th>
+    <th>To node</th>
+    <th>Transit time</th>
+    <th>Train</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @arcs.each do |arc| %>
+  <tr>
+    <td><%= arc.arc_type %></td>
+    <td><%= arc.from_node_id %></td>
+    <td><%= arc.to_node_id %></td>
+    <td><%= arc.transit_time %></td>
+    <td><%= arc.train_id %></td>
+    <td><%= link_to 'Show', arc %></td>
+    <td><%= link_to 'Edit', edit_arc_path(arc) %></td>
+    <td><%= link_to 'Destroy', arc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Arc', new_arc_path %>

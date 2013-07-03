@@ -1,0 +1,53 @@
+<h1>Listing trains</h1>
+
+<table>
+  <tr>
+    <th>Loop</th>
+    <th>Train category</th>
+    <th>Operates day 1</th>
+    <th>Operates day 2</th>
+    <th>Operates day 3</th>
+    <th>Operates day 4</th>
+    <th>Operates day 5</th>
+    <th>Operates day 6</th>
+    <th>Operates day 7</th>
+    <th>Operates day 8</th>
+    <th>Operates day 9</th>
+    <th>Operates day 10</th>
+    <th>Operates day 11</th>
+    <th>Operates day 12</th>
+    <th>Operates day 13</th>
+    <th>Operates day 14</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @trains.each do |train| %>
+  <tr>
+    <td><%= train.loop_id %></td>
+    <td><%= train.train_category %></td>
+    <td><%= train.operates_day_1 %></td>
+    <td><%= train.operates_day_2 %></td>
+    <td><%= train.operates_day_3 %></td>
+    <td><%= train.operates_day_4 %></td>
+    <td><%= train.operates_day_5 %></td>
+    <td><%= train.operates_day_6 %></td>
+    <td><%= train.operates_day_7 %></td>
+    <td><%= train.operates_day_8 %></td>
+    <td><%= train.operates_day_9 %></td>
+    <td><%= train.operates_day_10 %></td>
+    <td><%= train.operates_day_11 %></td>
+    <td><%= train.operates_day_12 %></td>
+    <td><%= train.operates_day_13 %></td>
+    <td><%= train.operates_day_14 %></td>
+    <td><%= link_to 'Show', train %></td>
+    <td><%= link_to 'Edit', edit_train_path(train) %></td>
+    <td><%= link_to 'Destroy', train, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Train', new_train_path %>

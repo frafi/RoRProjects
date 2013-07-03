@@ -1,0 +1,81 @@
+<%= form_for(@train) do |f| %>
+  <% if @train.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@train.errors.count, "error") %> prohibited this train from being saved:</h2>
+
+      <ul>
+      <% @train.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :loop_id %><br />
+    <%= f.number_field :loop_id %>
+  </div>
+  <div class="field">
+    <%= f.label :train_category %><br />
+    <%= f.text_field :train_category %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_1 %><br />
+    <%= f.check_box :operates_day_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_2 %><br />
+    <%= f.check_box :operates_day_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_3 %><br />
+    <%= f.check_box :operates_day_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_4 %><br />
+    <%= f.check_box :operates_day_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_5 %><br />
+    <%= f.check_box :operates_day_5 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_6 %><br />
+    <%= f.check_box :operates_day_6 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_7 %><br />
+    <%= f.check_box :operates_day_7 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_8 %><br />
+    <%= f.check_box :operates_day_8 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_9 %><br />
+    <%= f.check_box :operates_day_9 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_10 %><br />
+    <%= f.check_box :operates_day_10 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_11 %><br />
+    <%= f.check_box :operates_day_11 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_12 %><br />
+    <%= f.check_box :operates_day_12 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_13 %><br />
+    <%= f.check_box :operates_day_13 %>
+  </div>
+  <div class="field">
+    <%= f.label :operates_day_14 %><br />
+    <%= f.check_box :operates_day_14 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+1372825492
+Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
+ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
+ApplicationHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/application_helper.rb	module ApplicationHelper
+BrowsingTest	/home/frafi/RoRProjects/itinerary-finder/test/performance/browsing_test.rb	class BrowsingTest 
+ItineraryFinder	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	module ItineraryFinder
+TestCase	/home/frafi/RoRProjects/itinerary-finder/test/test_helper.rb	class ActiveSupport::TestCase
+test_homepage	/home/frafi/RoRProjects/itinerary-finder/test/performance/browsing_test.rb	  def test_homepage

@@ -1,0 +1,33 @@
+<h1>Listing train_routes</h1>
+
+<table>
+  <tr>
+    <th>Train</th>
+    <th>Route point seq</th>
+    <th>Station num</th>
+    <th>Station name</th>
+    <th>Arrive time hhhmm</th>
+    <th>Depart time hhhmm</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @train_routes.each do |train_route| %>
+  <tr>
+    <td><%= train_route.train_id %></td>
+    <td><%= train_route.route_point_seq %></td>
+    <td><%= train_route.station_num %></td>
+    <td><%= train_route.station_name %></td>
+    <td><%= train_route.arrive_time_hhhmm %></td>
+    <td><%= train_route.depart_time_hhhmm %></td>
+    <td><%= link_to 'Show', train_route %></td>
+    <td><%= link_to 'Edit', edit_train_route_path(train_route) %></td>
+    <td><%= link_to 'Destroy', train_route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Train route', new_train_route_path %>
