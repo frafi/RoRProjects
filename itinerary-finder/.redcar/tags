@@ -1,4 +1,4 @@
-1372831961
+1373247929
 Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
 ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
 ApplicationHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/application_helper.rb	module ApplicationHelper
@@ -33,7 +33,6 @@ TrainsController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains
 TrainsControllerTest	/home/frafi/RoRProjects/itinerary-finder/test/functional/trains_controller_test.rb	class TrainsControllerTest 
 TrainsHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/trains_helper.rb	module TrainsHelper
 TrainsHelperTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/helpers/trains_helper_test.rb	class TrainsHelperTest 
-add_foreign_key	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	  def self.add_foreign_key(table, column, referenced_table)
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044548_create_nodes.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044652_create_arcs.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044146_create_trains.rb	  def change
@@ -46,14 +45,10 @@ destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def destroy
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def destroy
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def destroy
-down	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044146_create_trains.rb	  def self.down
-down	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	  def self.down
-drop_foreign_key	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	  def self.drop_foreign_key(table, column)
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def edit
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def edit
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def edit
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def edit
-fk_name	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	  def self.fk_name(table, column)
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def index
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def index
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def index
@@ -67,8 +62,6 @@ show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.r
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def show
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def show
 test_homepage	/home/frafi/RoRProjects/itinerary-finder/test/performance/browsing_test.rb	  def test_homepage
-up	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044146_create_trains.rb	  def self.up
-up	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	  def self.up
 update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def update
 update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def update
 update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def update

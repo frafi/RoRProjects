@@ -5,3 +5,4 @@ class TrainRoute < ActiveRecord::Base
   # Relationships
   belongs_to :train
 end
+    

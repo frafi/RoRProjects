@@ -21,12 +21,4 @@ class CreateTrains < ActiveRecord::Migration
       t.timestamps
     end
   end
-
-  def self.up
-    change
-  end
-  
-  def self.down
-    drop_table :trains
-  end
 end
