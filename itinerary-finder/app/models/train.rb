@@ -4,4 +4,11 @@ class Train < ActiveRecord::Base
 
   #Relationships
   has_many :train_routes, :dependent => :destroy
+  has_many :arcs, :dependent => :destroy
+
+  #Validations
+  # ToDo: Use case insensitive search here (regular expresions)
+  validates_inclusion_of :train_category, :in => ["Long Distance", "Short Distance", "long distance", "short distance"]
+  validates_numericality_of :loop_id
+  validates_presence_of :train_category, :loop_id
 end

@@ -43,23 +43,23 @@ ActiveRecord::Schema.define(:version => 20130703044652) do
 
   create_table "trains", :force => true do |t|
     t.integer  "loop_id"
-    t.string   "train_category"
-    t.boolean  "operates_day_1"
-    t.boolean  "operates_day_2"
-    t.boolean  "operates_day_3"
-    t.boolean  "operates_day_4"
-    t.boolean  "operates_day_5"
-    t.boolean  "operates_day_6"
-    t.boolean  "operates_day_7"
-    t.boolean  "operates_day_8"
-    t.boolean  "operates_day_9"
-    t.boolean  "operates_day_10"
-    t.boolean  "operates_day_11"
-    t.boolean  "operates_day_12"
-    t.boolean  "operates_day_13"
-    t.boolean  "operates_day_14"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "train_category",  :default => "Short Distance", :null => false
+    t.boolean  "operates_day_1",  :default => false,            :null => false
+    t.boolean  "operates_day_2",  :default => false,            :null => false
+    t.boolean  "operates_day_3",  :default => false,            :null => false
+    t.boolean  "operates_day_4",  :default => false,            :null => false
+    t.boolean  "operates_day_5",  :default => false,            :null => false
+    t.boolean  "operates_day_6",  :default => false,            :null => false
+    t.boolean  "operates_day_7",  :default => false,            :null => false
+    t.boolean  "operates_day_8",  :default => false,            :null => false
+    t.boolean  "operates_day_9",  :default => false,            :null => false
+    t.boolean  "operates_day_10", :default => false,            :null => false
+    t.boolean  "operates_day_11", :default => false,            :null => false
+    t.boolean  "operates_day_12", :default => false,            :null => false
+    t.boolean  "operates_day_13", :default => false,            :null => false
+    t.boolean  "operates_day_14", :default => false,            :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
 end
