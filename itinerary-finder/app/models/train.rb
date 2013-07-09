@@ -7,8 +7,9 @@ class Train < ActiveRecord::Base
   has_many :arcs, :dependent => :destroy
 
   #Validations
-  # ToDo: Use case insensitive search here (regular expresions)
-  validates_inclusion_of :train_category, :in => ["Long Distance", "Short Distance", "long distance", "short distance"]
+  #ToDo: Use case insensitive search here (regular expresions)
+  #validates_inclusion_of :train_category, :in => ["Long distance", "International", "Commuter"]
   validates_numericality_of :loop_id
   validates_presence_of :train_category, :loop_id
+  
 end

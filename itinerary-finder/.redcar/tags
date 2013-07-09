@@ -1,4 +1,4 @@
-1373255373
+1373341941
 Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
 ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
 ApplicationHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/application_helper.rb	module ApplicationHelper

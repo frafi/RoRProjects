@@ -1,27 +1,14 @@
 --- 
 cursor_positions: 
-  - :path: app/models/train.rb
-    :cursor_offset: 644
-    :timestamp: 2013-07-07 23:02:53 -04:00
-    :selection_offset: 524
-    :block_selection_mode: false
   - :path: config/routes.rb
     :cursor_offset: 85
     :timestamp: 2013-07-03 00:46:52 -04:00
-  - :path: app/models/train_route.rb
-    :cursor_offset: 254
-    :timestamp: 2013-07-07 23:04:16 -04:00
-    :selection_offset: 227
-    :block_selection_mode: false
   - :path: db/migrate/20130703044432_create_train_routes.rb
     :cursor_offset: 326
     :timestamp: 2013-07-07 22:21:08 -04:00
   - :path: db/migrate/20130703044146_create_trains.rb
     :cursor_offset: 99
     :timestamp: 2013-07-07 22:17:50 -04:00
-  - :path: app/models/arc.rb
-    :cursor_offset: 174
-    :timestamp: 2013-07-07 23:03:53 -04:00
   - :path: app/models/node.rb
     :cursor_offset: 171
     :timestamp: 2013-07-07 23:04:12 -04:00
@@ -66,9 +53,6 @@ cursor_positions:
   - :path: test/fixtures/arcs.yml
     :cursor_offset: 0
     :timestamp: 2013-07-03 00:46:52 -04:00
-  - :path: db/seeds.rb
-    :cursor_offset: 0
-    :timestamp: 2013-07-03 00:36:20 -04:00
   - :path: test/functional/arcs_controller_test.rb
     :cursor_offset: 0
     :timestamp: 2013-07-03 00:46:52 -04:00
@@ -81,7 +65,32 @@ cursor_positions:
   - :path: test/functional/trains_controller_test.rb
     :cursor_offset: 238
     :timestamp: 2013-07-03 00:41:46 -04:00
-  - :path: app/controllers/train_routes_controller.rb
-    :cursor_offset: 0
+  - :path: app/models/train.rb
+    :cursor_offset: 501
+    :timestamp: 2013-07-08 23:25:22 -04:00
+  - :path: db/seeds.rb
+    :cursor_offset: 348
+    :timestamp: 2013-07-08 23:25:18 -04:00
+  - :path: app/views/train_routes/index.html.erb
+    :cursor_offset: 175
     :timestamp: 2013-07-03 00:44:32 -04:00
+  - :path: app/views/train_routes/show.html.erb
+    :cursor_offset: 158
+    :timestamp: 2013-07-03 00:44:32 -04:00
+  - :path: app/models/arc.rb
+    :cursor_offset: 174
+    :timestamp: 2013-07-07 23:03:53 -04:00
+  - :path: app/models/itinerary.rb
+    :cursor_offset: 503
+    :timestamp: 2013-07-07 23:47:02 -04:00
+  - :path: app/models/train_route.rb
+    :cursor_offset: 108
+    :timestamp: 2013-07-07 23:04:16 -04:00
+    :selection_offset: 91
+    :block_selection_mode: false
+  - :path: app/controllers/train_routes_controller.rb
+    :cursor_offset: 2161
+    :timestamp: 2013-07-03 00:44:32 -04:00
+    :selection_offset: 0
+    :block_selection_mode: false
 files_to_retain: 0
