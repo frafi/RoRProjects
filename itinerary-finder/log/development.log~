@@ -1,0 +1,139 @@
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2013-07-13 03:54:20 -0400
+Processing by HomeController#index as HTML
+  [1m[36mTrainRoute Load (29.0ms)[0m  [1mSELECT "train_routes".* FROM "train_routes" GROUP BY station_num ORDER BY station_num ASC[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "train_routes".* FROM "train_routes" GROUP BY station_num ORDER BY station_num ASC
+  [1m[36mTrainRoute Load (42.3ms)[0m  [1mSELECT "train_routes".* FROM "train_routes" WHERE (arrive_time_hhhmm != -1) GROUP BY arrive_time_hhhmm ORDER BY arrive_time_hhhmm ASC[0m
+  Rendered home/index.html.erb within layouts/application (411.4ms)
+Completed 200 OK in 494ms (Views: 419.9ms | ActiveRecord: 73.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:20 -0400
+Served asset /application.css - 304 Not Modified (13ms)
+
+
+Started GET "/assets/nodes.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:20 -0400
+Served asset /nodes.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/arcs.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /arcs.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /home.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/train_routes.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /train_routes.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /scaffolds.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /jquery.js - 304 Not Modified (9ms)
+
+
+Started GET "/assets/trains.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /trains.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/arcs.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /arcs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /home.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/nodes.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /nodes.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/trains.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /trains.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/train_routes.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /train_routes.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:21 -0400
+Served asset /application.js - 304 Not Modified (7ms)
+
+
+Started GET "/calculate?utf8=%E2%9C%93&start_station%5Bstation_num%5D=19351&end_station%5Bstation_num%5D=52440&reach_by%5Barrive_time_hhhmm%5D=&commit=Find+itinerary" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Processing by HomeController#show_itinerary as HTML
+  Parameters: {"utf8"=>"✓", "start_station"=>{"station_num"=>"19351"}, "end_station"=>{"station_num"=>"52440"}, "reach_by"=>{"arrive_time_hhhmm"=>""}, "commit"=>"Find itinerary"}
+  [1m[35mNode Load (0.1ms)[0m  SELECT "nodes".* FROM "nodes" 
+  [1m[36mSQL (8.1ms)[0m  [1mDELETE FROM "nodes"[0m
+  Rendered home/show_itinerary.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 85ms (Views: 63.9ms | ActiveRecord: 8.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/arcs.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /arcs.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/train_routes.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /train_routes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/nodes.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /nodes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/trains.css?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /trains.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/arcs.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /arcs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/nodes.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /nodes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/train_routes.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /train_routes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/trains.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /trains.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-13 03:54:44 -0400
+Served asset /application.js - 304 Not Modified (0ms)

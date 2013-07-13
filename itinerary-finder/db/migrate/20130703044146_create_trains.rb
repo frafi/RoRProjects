@@ -1,7 +1,7 @@
 class CreateTrains < ActiveRecord::Migration  
   def change
     create_table :trains do |t|
-      #t.integer :train_number
+      t.integer :train_number
       t.integer :loop_id
       t.string  :train_category,  :default => "Short Distance", :null => false
       t.boolean :operates_day_1,  :default => false, :null => false

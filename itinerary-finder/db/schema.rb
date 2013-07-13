@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20130703044652) do
   end
 
   create_table "train_routes", :force => true do |t|
-    t.integer  "train_id"
+    t.integer  "train_number"
     t.integer  "route_point_seq"
     t.integer  "station_num"
     t.string   "station_name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20130703044652) do
   end
 
   create_table "trains", :force => true do |t|
+    t.integer  "train_number"
     t.integer  "loop_id"
     t.string   "train_category",  :default => "Short Distance", :null => false
     t.boolean  "operates_day_1",  :default => false,            :null => false

@@ -1,9 +1,9 @@
 class TrainRoute < ActiveRecord::Base
   #Attributes
-  attr_accessible :arrive_time_hhhmm, :depart_time_hhhmm, :route_point_seq, :station_name, :station_num, :train_id
+  attr_accessible :arrive_time_hhhmm, :depart_time_hhhmm, :route_point_seq, :station_name, :station_num, :train_number, :train_id
   
   #Relationships
-  belongs_to :train
+  belongs_to :train, :foreign_key => "train_number"
   
   #Validations
   validates_associated :train
