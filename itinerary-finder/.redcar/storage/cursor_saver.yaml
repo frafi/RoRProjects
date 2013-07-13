@@ -3,9 +3,6 @@ cursor_positions:
   - :path: config/routes.rb
     :cursor_offset: 85
     :timestamp: 2013-07-03 00:46:52 -04:00
-  - :path: db/migrate/20130703044432_create_train_routes.rb
-    :cursor_offset: 326
-    :timestamp: 2013-07-07 22:21:08 -04:00
   - :path: db/migrate/20130703044146_create_trains.rb
     :cursor_offset: 99
     :timestamp: 2013-07-07 22:17:50 -04:00
@@ -68,9 +65,6 @@ cursor_positions:
   - :path: app/models/train.rb
     :cursor_offset: 501
     :timestamp: 2013-07-08 23:25:22 -04:00
-  - :path: db/seeds.rb
-    :cursor_offset: 348
-    :timestamp: 2013-07-08 23:25:18 -04:00
   - :path: app/views/train_routes/index.html.erb
     :cursor_offset: 175
     :timestamp: 2013-07-03 00:44:32 -04:00
@@ -83,14 +77,44 @@ cursor_positions:
   - :path: app/models/itinerary.rb
     :cursor_offset: 503
     :timestamp: 2013-07-07 23:47:02 -04:00
-  - :path: app/models/train_route.rb
-    :cursor_offset: 108
-    :timestamp: 2013-07-07 23:04:16 -04:00
-    :selection_offset: 91
-    :block_selection_mode: false
   - :path: app/controllers/train_routes_controller.rb
     :cursor_offset: 2161
     :timestamp: 2013-07-03 00:44:32 -04:00
     :selection_offset: 0
     :block_selection_mode: false
+  - :path: db/migrate/20130703044432_create_train_routes.rb
+    :cursor_offset: 188
+    :timestamp: 2013-07-07 22:21:08 -04:00
+    :selection_offset: 177
+    :block_selection_mode: false
+  - :path: db/seeds.rb
+    :cursor_offset: 801
+    :timestamp: 2013-07-08 23:25:18 -04:00
+  - :path: app/views/nodes/_form.html.erb
+    :cursor_offset: 0
+    :timestamp: 2013-07-03 00:45:48 -04:00
+  - :path: app/controllers/itinerary_controller.rb
+    :cursor_offset: 543
+    :timestamp: 2013-07-08 22:40:53 -04:00
+  - :path: app/models/train_route.rb
+    :cursor_offset: 472
+    :timestamp: 2013-07-13 00:12:08 -04:00
+  - :path: app/controllers/nodes_controller.rb
+    :cursor_offset: 422
+    :timestamp: 2013-07-03 00:45:48 -04:00
+  - :path: app/views/home/show_itinerary.html.erb
+    :cursor_offset: 0
+    :timestamp: 2013-07-13 00:11:49 -04:00
+  - :path: app/assets/javascripts/trains.js.coffee
+    :cursor_offset: 229
+    :timestamp: 2013-07-03 00:41:46 -04:00
+  - :path: app/assets/javascripts/nodes.js.coffee
+    :cursor_offset: 0
+    :timestamp: 2013-07-03 00:45:48 -04:00
+  - :path: app/assets/javascripts/home.js.coffee
+    :cursor_offset: 0
+    :timestamp: 2013-07-12 21:56:32 -04:00
+  - :path: app/assets/javascripts/arcs.js.coffee
+    :cursor_offset: 0
+    :timestamp: 2013-07-03 00:46:52 -04:00
 files_to_retain: 0

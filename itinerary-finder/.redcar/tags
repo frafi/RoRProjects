@@ -1,4 +1,4 @@
-1373681896
+1373691196
 Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
 ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
 ApplicationHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/application_helper.rb	module ApplicationHelper
@@ -18,7 +18,6 @@ HomeControllerTest	/home/frafi/RoRProjects/itinerary-finder/test/functional/home
 HomeHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/home_helper.rb	module HomeHelper
 HomeHelperTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/helpers/home_helper_test.rb	class HomeHelperTest 
 Itinerary	/home/frafi/RoRProjects/itinerary-finder/app/models/itinerary.rb	class Itinerary
-ItineraryController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/itinerary_controller.rb	class ItineraryController 
 ItineraryFinder	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	module ItineraryFinder
 Node	/home/frafi/RoRProjects/itinerary-finder/app/models/node.rb	class Node 
 NodeTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/node_test.rb	class NodeTest 
@@ -48,6 +47,8 @@ create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def create
+create_arcs	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def create_arcs
+create_nodes	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def create_nodes
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def destroy
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def destroy
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def destroy
@@ -74,7 +75,7 @@ show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def show
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def show
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def show
-show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/itinerary_controller.rb	  def show
+show_itinerary	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def show_itinerary
 start_station	/home/frafi/RoRProjects/itinerary-finder/app/models/itinerary.rb	  attr_accessor :start_station, :end_station, :reach_by
 test_homepage	/home/frafi/RoRProjects/itinerary-finder/test/performance/browsing_test.rb	  def test_homepage
 update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def update

@@ -1,2 +1,18 @@
-<h1>Home#index</h1>
+<h1>Itinerary Finder</h1>
 <p>Find me in app/views/home/index.html.erb</p>
+<%= form_tag("/calculate", method: "get") do %>
+<table class="myItineraryTable">
+  <tr>
+    <th class="myHeading">Starting station</th>
+      <th class="myHeading">Ending station</th>
+    <th class="myHeading">Arrival time</th>
+  </tr>
+  <tr>
+    <td><%= collection_select(:start_station, :station_num, TrainRoute.all(:order => "station_num ASC", :group => 'station_num'), :station_num, :station_num, :prompt => "Select origin") %></td>
+    <td><%= collection_select(:end_station, :station_num, TrainRoute.all(:order => "station_num ASC", :group => 'station_num'), :station_num, :station_num, :prompt => "Select destination") %></td>
+    <td><%= collection_select(:reach_by, :arrive_time_hhhmm, TrainRoute.all(:order => "arrive_time_hhhmm ASC", :group => 'arrive_time_hhhmm', :conditions => ["arrive_time_hhhmm != ?", -1]), :arrive_time_hhhmm, :arrive_time_hhhmm, :prompt => "Select arrival time") %></td>
+  </tr>
+</table>
+<%= submit_tag("Find itinerary") %>
+<% end %>
+
