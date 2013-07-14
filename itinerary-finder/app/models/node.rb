@@ -3,7 +3,7 @@ class Node < ActiveRecord::Base
   attr_accessible :event_time, :station_num
   
   #Relationships
-  has_many :arcs, :dependent => :destroy
+  #has_many :arcs, :dependent => :destroy
   
   #Validations
   validates_numericality_of :event_time, :station_num

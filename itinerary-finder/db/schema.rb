@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703044652) do
+ActiveRecord::Schema.define(:version => 20130714054333) do
 
   create_table "arcs", :force => true do |t|
     t.string   "arc_type"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(:version => 20130703044652) do
     t.integer  "train_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "node_details", :force => true do |t|
+    t.integer  "station_num"
+    t.string   "station_name"
+    t.integer  "event_time"
+    t.integer  "original_event_time"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "nodes", :force => true do |t|

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  station_num: 1
+  station_name: MyString
+  event_time: 1
+  original_event_time: 1
+
+two:
+  station_num: 1
+  station_name: MyString
+  event_time: 1
+  original_event_time: 1

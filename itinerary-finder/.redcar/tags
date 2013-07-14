@@ -1,4 +1,4 @@
-1373707403
+1373791413
 AcyclicSP	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	class AcyclicSP
 Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
 ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
@@ -11,6 +11,7 @@ ArcsHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/arcs_helper.rb	m
 ArcsHelperTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/helpers/arcs_helper_test.rb	class ArcsHelperTest 
 BrowsingTest	/home/frafi/RoRProjects/itinerary-finder/test/performance/browsing_test.rb	class BrowsingTest 
 CreateArcs	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044652_create_arcs.rb	class CreateArcs 
+CreateNodeDetails	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130714054333_create_node_details.rb	class CreateNodeDetails 
 CreateNodes	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044548_create_nodes.rb	class CreateNodes 
 CreateTrainRoutes	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	class CreateTrainRoutes 
 CreateTrains	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044146_create_trains.rb	class CreateTrains 
@@ -21,6 +22,12 @@ HomeHelperTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/helpers/home_h
 ItineraryFinder	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	module ItineraryFinder
 MyNode	/home/frafi/RoRProjects/itinerary-finder/lib/MyNode.rb	class MyNode
 Node	/home/frafi/RoRProjects/itinerary-finder/app/models/node.rb	class Node 
+NodeDetail	/home/frafi/RoRProjects/itinerary-finder/app/models/node_detail.rb	class NodeDetail 
+NodeDetailTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/node_detail_test.rb	class NodeDetailTest 
+NodeDetailsController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	class NodeDetailsController 
+NodeDetailsControllerTest	/home/frafi/RoRProjects/itinerary-finder/test/functional/node_details_controller_test.rb	class NodeDetailsControllerTest 
+NodeDetailsHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/node_details_helper.rb	module NodeDetailsHelper
+NodeDetailsHelperTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/helpers/node_details_helper_test.rb	class NodeDetailsHelperTest 
 NodeTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/node_test.rb	class NodeTest 
 NodesController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	class NodesController 
 NodesControllerTest	/home/frafi/RoRProjects/itinerary-finder/test/functional/nodes_controller_test.rb	class NodesControllerTest 
@@ -45,11 +52,12 @@ change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044652_create
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044146_create_trains.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044548_create_nodes.rb	  def change
+change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130714054333_create_node_details.rb	  def change
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def create
-create_arcs	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def create_arcs
+create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	  def create
 create_dwell_arcs	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def create_dwell_arcs
 create_nodes	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def create_nodes
 create_outbound_arcs	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	  def create_outbound_arcs 
@@ -58,17 +66,20 @@ destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def destroy
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def destroy
 destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def destroy
+destroy	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	  def destroy
 dwell_arcs	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  attr_accessor :node_list, :dwell_arcs, :train_arcs, :acyclic_sp
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def edit
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def edit
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def edit
 edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def edit
+edit	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	  def edit
 event_time	/home/frafi/RoRProjects/itinerary-finder/lib/MyNode.rb	  attr_accessor :event_time, :station_num, :station_name, :original_event_time, :node_id
 get_paths	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	  def get_paths 
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def index
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def index
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def index
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def index
+index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	  def index
 index	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def index
 initialize	/home/frafi/RoRProjects/itinerary-finder/lib/MyNode.rb	  def initialize 
 initialize	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	  def initialize 
@@ -76,6 +87,7 @@ new	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	
 new	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def new
 new	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def new
 new	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def new
+new	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	  def new
 node_id	/home/frafi/RoRProjects/itinerary-finder/lib/MyNode.rb	  attr_accessor :event_time, :station_num, :station_name, :original_event_time, :node_id
 node_list	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	  attr_accessor :node_list
 node_list	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  attr_accessor :node_list, :dwell_arcs, :train_arcs, :acyclic_sp
@@ -86,6 +98,7 @@ show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def show
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def show
 show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def show
+show	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	  def show
 show_itinerary	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def show_itinerary
 station_name	/home/frafi/RoRProjects/itinerary-finder/lib/MyNode.rb	  attr_accessor :event_time, :station_num, :station_name, :original_event_time, :node_id
 station_num	/home/frafi/RoRProjects/itinerary-finder/lib/MyNode.rb	  attr_accessor :event_time, :station_num, :station_name, :original_event_time, :node_id
@@ -95,3 +108,4 @@ update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.
 update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def update
 update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def update
 update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def update
+update	/home/frafi/RoRProjects/itinerary-finder/app/controllers/node_details_controller.rb	  def update

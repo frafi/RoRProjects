@@ -1,0 +1,29 @@
+<h1>Listing node_details</h1>
+
+<table>
+  <tr>
+    <th>Station num</th>
+    <th>Station name</th>
+    <th>Event time</th>
+    <th>Original event time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @node_details.each do |node_detail| %>
+  <tr>
+    <td><%= node_detail.station_num %></td>
+    <td><%= node_detail.station_name %></td>
+    <td><%= node_detail.event_time %></td>
+    <td><%= node_detail.original_event_time %></td>
+    <td><%= link_to 'Show', node_detail %></td>
+    <td><%= link_to 'Edit', edit_node_detail_path(node_detail) %></td>
+    <td><%= link_to 'Destroy', node_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Node detail', new_node_detail_path %>

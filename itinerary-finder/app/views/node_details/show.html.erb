@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Station num:</b>
+  <%= @node_detail.station_num %>
+</p>
+
+<p>
+  <b>Station name:</b>
+  <%= @node_detail.station_name %>
+</p>
+
+<p>
+  <b>Event time:</b>
+  <%= @node_detail.event_time %>
+</p>
+
+<p>
+  <b>Original event time:</b>
+  <%= @node_detail.original_event_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_node_detail_path(@node_detail) %> |
+<%= link_to 'Back', node_details_path %>

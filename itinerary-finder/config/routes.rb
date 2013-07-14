@@ -1,5 +1,8 @@
 ItineraryFinder::Application.routes.draw do
 
+  resources :node_details
+
+
   resources :arcs
 
   resources :nodes

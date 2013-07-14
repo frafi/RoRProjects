@@ -1,0 +1,2 @@
+module NodeDetailsHelper
+end

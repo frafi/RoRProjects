@@ -4,6 +4,7 @@ class TrainRoute < ActiveRecord::Base
   
   #Relationships
   belongs_to :train, :foreign_key => "train_number"
+  has_many :node_details
   
   #Validations
   validates_associated :train
