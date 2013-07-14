@@ -3,7 +3,7 @@ class NodeDetail < ActiveRecord::Base
 
   #Relationships
   has_many :arcs
-  belongs_to :train_route, :foreign_key => "train_number"
+  belongs_to :train_route, :foreign_key => "train_number,station_name,station_num"
   
   #Validations
   validates_numericality_of :event_time, :station_num, :original_event_time

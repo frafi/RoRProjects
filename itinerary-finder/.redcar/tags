@@ -1,4 +1,4 @@
-1373791413
+1373831341
 AcyclicSP	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	class AcyclicSP
 Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
 ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
@@ -48,11 +48,11 @@ TrainsHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/trains_helper.
 TrainsHelperTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/helpers/trains_helper_test.rb	class TrainsHelperTest 
 acyclic_sp	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  attr_accessor :node_list, :dwell_arcs, :train_arcs, :acyclic_sp
 calculate_path	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def calculate_path 
-change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044652_create_arcs.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044432_create_train_routes.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044146_create_trains.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044548_create_nodes.rb	  def change
 change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130714054333_create_node_details.rb	  def change
+change	/home/frafi/RoRProjects/itinerary-finder/db/migrate/20130703044652_create_arcs.rb	  def change
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/arcs_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def create

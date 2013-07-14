@@ -5,7 +5,7 @@ class CreateArcs < ActiveRecord::Migration
       t.integer :from_node_id
       t.integer :to_node_id
       t.integer :transit_time
-      t.integer :train_id
+      t.integer :train_number
 
       t.timestamps
     end

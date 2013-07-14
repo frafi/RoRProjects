@@ -103,30 +103,31 @@ class HomeController < ApplicationController
       "OR (train_routes.depart_time_hhhmm = -1 AND train_routes.arrive_time_hhhmm = original_event_time))")
       .select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, " + 
         "train_routes.train_number as train_number, train_routes.route_point_seq")
-      .order("train_routes.train_number, node_details.station_name, node_details.event_time").all
-      #.includes(:train_routes).all
+      .order("train_routes.train_number, node_details.station_name, node_details.event_time")
+      .all
     logger.debug "Nodes with train data has #{nodes_with_train_routes.size} rows"  
-    logger.debug nodes_with_train_routes.first.inspect
     nodes_with_train_routes.each do |t|
-      if current_train == t.train_number 
-        to_time = t.event_time
-        time_difference = to_time - from_time unless from_time.nil?
-        to_node = t.id
-        Arc.create(
-          :arc_type => "Train", 
-          :from_node_id => current_node, 
-          :to_node_id => to_node, 
-          :transit_time => time_difference,
-          :train_number => current_train
-        )
-      else
-        current_train = t.train_number 
+      unless t.train_number.nil?
+        logger.debug "Curent Node is #{t.train_number}" unless t.train_number.nil?
+        if current_train == t.train_number 
+          to_time = t.event_time
+          time_difference = to_time - from_time unless from_time.nil?
+          to_node = t.id
+          Arc.create(
+            :arc_type => "Train", 
+            :from_node_id => current_node, 
+            :to_node_id => to_node, 
+            :transit_time => time_difference,
+            :train_number => current_train
+          )
+        else
+          current_train = t.train_number 
+          from_time = t.event_time
+        end
+        current_node = t.id
         from_time = t.event_time
       end
-      current_node = t.id
-      from_time = t.event_time
     end
-=end
   end
 
   def calculate_path start_station_num, end_station_num, reach_by_hhhmm

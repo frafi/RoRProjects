@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20130714054333) do
     t.integer  "from_node_id"
     t.integer  "to_node_id"
     t.integer  "transit_time"
-    t.integer  "train_id"
+    t.integer  "train_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
