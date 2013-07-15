@@ -3,7 +3,7 @@ class TrainRoute < ActiveRecord::Base
   attr_accessible :arrive_time_hhhmm, :depart_time_hhhmm, :route_point_seq, :station_name, :station_num, :train_number, :train_id
   
   #Relationships
-  belongs_to :train, :foreign_key => "train_number"
+  belongs_to :train, :primary_key => "train_number", :foreign_key => "train_number"
   has_many :node_details
   
   #Validations

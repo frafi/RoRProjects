@@ -3,13 +3,15 @@
 <table class="myItineraryTable">
   <tr>
     <th class="myHeading">Starting station</th>
-      <th class="myHeading">Ending station</th>
-    <th class="myHeading">Arrival time</th>
+    <td><%= collection_select(:start_station, :station_num, TrainRoute.all(:order => "station_num ASC", :group => 'station_num'), :station_num, :station_num, :prompt => "Select origin") %></td>
   </tr>
   <tr>
-    <td><%= collection_select(:start_station, :station_num, TrainRoute.all(:order => "station_num ASC", :group => 'station_num'), :station_num, :station_num, :prompt => "Select origin") %></td>
+    <th class="myHeading">Ending station</th>
     <td><%= collection_select(:end_station, :station_num, TrainRoute.all(:order => "station_num ASC", :group => 'station_num'), :station_num, :station_num, :prompt => "Select destination") %></td>
-    <td><%= collection_select(:reach_by, :arrive_time_hhhmm, TrainRoute.all(:order => "arrive_time_hhhmm ASC", :group => 'arrive_time_hhhmm', :conditions => ["arrive_time_hhhmm != ?", -1]), :arrive_time_hhhmm, :arrive_time_hhhmm, :prompt => "Select arrival time") %></td>
+  </tr>
+  <tr>
+    <th class="myHeading">Arrival time</th>
+    <td><%= text_field_tag(:reach_by) %></td>
   </tr>
 </table>
 <%= submit_tag("Find itinerary") %>
