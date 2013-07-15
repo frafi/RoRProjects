@@ -53,35 +53,37 @@ class HomeController < ApplicationController
     to_time = 0
     nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
       "ON node_details.station_num = train_routes.station_num " +
-      "AND node_details.station_name = train_routes.station_name AND " +
-      "( (train_routes.arrive_time_hhhmm = -1 AND train_routes.depart_time_hhhmm = original_event_time) " +
-      "OR (train_routes.depart_time_hhhmm = -1 AND train_routes.arrive_time_hhhmm = original_event_time))")
-      .select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id")
+      "AND node_details.station_name = train_routes.station_name").
+      #"AND node_details.station_name = train_routes.station_name " +
+      #"AND ( (train_routes.arrive_time_hhhmm = -1 AND train_routes.depart_time_hhhmm = original_event_time) " +
+      #"OR (train_routes.depart_time_hhhmm = -1 AND train_routes.arrive_time_hhhmm = original_event_time))")
+      where("node_details.original_event_time = CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END ").
+      select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, train_routes.arrive_time_hhhmm as arrival_time, train_routes.depart_time_hhhmm as departure_time")
       .order("node_details.station_num, node_details.station_name, node_details.event_time").all
     logger.debug "Nodes with train data has #{nodes_with_train_routes.size} rows"  
     nodes_with_train_routes.each do |t|
-      if current_station_num == 0 && previous_station_num == 0 
-        from_node = t.id
-        logger.debug "From Node = #{from_node}"
-        previous_station_num = t.station_num
-        from_time = t.event_time
-        next
-      end
-      current_station_num = t.station_num
-      if current_station_num == previous_station_num
-        to_node = t.id
-        to_time = t.event_time
-        time_difference = to_time - from_time unless from_time.nil?
-        logger.debug "From Node = #{from_node}, To Node = #{to_node}, Transit Time = #{time_difference}"
-        Arc.create(:arc_type => "Dwell", :from_node_id => from_node, :to_node_id => to_node, :transit_time => time_difference)
-        from_node = to_node
-        from_time = to_time
-      else
-        from_node = t.id
-        previous_station_num = current_station_num
-        from_time = t.event_time
-      end
-    end
+        if current_station_num == 0 && previous_station_num == 0 
+          from_node = t.id
+          logger.debug "From Node = #{from_node}"
+          previous_station_num = t.station_num
+          from_time = t.event_time
+          next
+        end
+        current_station_num = t.station_num
+        if current_station_num == previous_station_num
+          to_node = t.id
+          to_time = t.event_time
+          time_difference = to_time - from_time unless from_time.nil?
+          logger.debug "From Node = #{from_node}, To Node = #{to_node}, Transit Time = #{time_difference}"
+          Arc.create(:arc_type => "Dwell", :from_node_id => from_node, :to_node_id => to_node, :transit_time => time_difference)
+          from_node = to_node
+          from_time = to_time
+        else
+          from_node = t.id
+          previous_station_num = current_station_num
+          from_time = t.event_time
+        end
+      end    
   end
 
   def create_train_arcs
@@ -193,11 +195,6 @@ class HomeController < ApplicationController
         #logger.debug "BEFORE:Set total cost of node #{x} to 0. Rest is #{y.inspect}"
         y[1] = 0
         #logger.debug "AFTER:Set total cost of node #{x} to 0. Rest is #{y.inspect}"
-        #y.each[2..-2] do |p|
-        #if p[0] == candidate_starting_node.event_time
-        #  
-        #  p[1][3] = 0     
-        #end
         next
       end
       if si_found
@@ -205,10 +202,6 @@ class HomeController < ApplicationController
         #logger.debug "BEFORE:Set total cost of node #{x} to Max integer. Rest is #{y.inspect}"
         y[1] = Float::INFINITY
         #logger.debug "AFTER:Set total cost of node #{x} to Max integer. Rest is #{y.inspect}"
-        #y[1..-1].each do |p| 
-          # set total cost to MAX
-          #p[1][3] = Float::INFINITY
-        #end
       end
     end
     logger.debug "Event times AFTER #{@event_times[candidate_starting_node.id].inspect}"  
