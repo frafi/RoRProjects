@@ -57,7 +57,8 @@ class HomeController < ApplicationController
       #"AND node_details.station_name = train_routes.station_name " +
       #"AND ( (train_routes.arrive_time_hhhmm = -1 AND train_routes.depart_time_hhhmm = original_event_time) " +
       #"OR (train_routes.depart_time_hhhmm = -1 AND train_routes.arrive_time_hhhmm = original_event_time))")
-      where("node_details.original_event_time = CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END ").
+      where("node_details.original_event_time = CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END " +
+       "AND train_routes.arrive_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm <> -1").
       select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, train_routes.arrive_time_hhhmm as arrival_time, train_routes.depart_time_hhhmm as departure_time")
       .order("node_details.station_num, node_details.station_name, node_details.event_time").all
     logger.debug "Nodes with train data has #{nodes_with_train_routes.size} rows"  
@@ -97,9 +98,10 @@ class HomeController < ApplicationController
     nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
       "ON node_details.station_num = train_routes.station_num " +
       "AND node_details.station_name = train_routes.station_name AND " +
-      "( (train_routes.arrive_time_hhhmm = -1 AND train_routes.depart_time_hhhmm = original_event_time) " +
-      "OR (train_routes.depart_time_hhhmm = -1 AND train_routes.arrive_time_hhhmm = original_event_time))")
-      .select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, " + 
+      "train_routes.depart_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm = node_details.original_event_time").
+      #"( (train_routes.arrive_time_hhhmm = -1 AND train_routes.depart_time_hhhmm = original_event_time) " +
+      #"OR (train_routes.depart_time_hhhmm = -1 AND train_routes.arrive_time_hhhmm = original_event_time))")
+      select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, " + 
         "train_routes.train_number as train_number, train_routes.route_point_seq")
       .order("train_routes.train_number, node_details.station_name, node_details.event_time")
       .all
@@ -182,6 +184,7 @@ class HomeController < ApplicationController
 
   def calculate_path start_station_num, end_station_num, reach_by_hhhmm
     #find_node_by_station 70550
+    @tinerary_path = [] 
     candidate_starting_node = NodeDetail.order(:event_time).all(
       :conditions => ["station_num = ? AND event_time >= ?", start_station_num, reach_by_hhhmm]).first
     logger.debug "Candidate starting node #{candidate_starting_node.inspect}"
@@ -238,7 +241,6 @@ class HomeController < ApplicationController
     
     unless finish_node_id == 0
       if destination_found
-        @tinerary_path = [] 
         current_predecessor_id = @event_times[finish_node_id][0]
         until current_predecessor_id.nil?
           # get predecessor's outbound arcs'
