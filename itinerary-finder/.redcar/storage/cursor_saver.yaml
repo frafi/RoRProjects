@@ -158,6 +158,6 @@ cursor_positions:
     :selection_offset: 990
     :block_selection_mode: false
   - :path: app/controllers/home_controller.rb
-    :cursor_offset: 2365
-    :timestamp: 2013-07-20 02:30:40 -04:00
+    :cursor_offset: 3308
+    :timestamp: 2013-07-24 01:26:59 -04:00
 files_to_retain: 0
