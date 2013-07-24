@@ -1,3 +1,5 @@
+require "MyNode"
+
 def populate_trains
   puts "Populating Train table"
   Train.delete_all
@@ -34,5 +36,132 @@ def populate_train_routes
   puts "Added #{TrainRoute.all.count} records"
 end
 
-populate_trains
-populate_train_routes
+def create_nodes
+  puts "Populating nodes and node details"
+  Node.delete_all
+  NodeDetail.delete_all
+  # First empty all nodes
+  node_list = {}
+  node_id = 1
+  TrainRoute.all(:include => :train).each do |tr|
+    event_time = tr.arrive_time_hhhmm unless (tr.arrive_time_hhhmm == -1)
+    event_time = tr.depart_time_hhhmm if event_time.nil? 
+    (1..21).each do |d|
+      schedule_index = 1 if (d == 15)
+      schedule_index = d % 15 if schedule_index.nil?
+      train_operating =  tr.train["operates_day_#{schedule_index}"] unless tr.train.nil?
+      if train_operating  
+        computed_minutes = event_time + ((d-1) * 1440)
+        computed_hhhmm = "#{(computed_minutes/60).to_s.rjust(3,"0")}#{(computed_minutes % 60).to_s.rjust(2,"0")}"
+        node_key = "#{tr.station_num.to_s.rjust(5,"0")}#{computed_minutes.to_s.rjust(6,"0")}"
+        new_node = MyNode.new node_id, computed_minutes, tr.station_num, tr.station_name, event_time
+        node_list[node_key] = new_node      
+        node_id =+ 1
+      end
+    end
+  end
+  node_list.keys.sort.each do |p|
+    Node.create(:station_num => node_list[p].station_num, :event_time => node_list[p].event_time)
+    NodeDetail.create(
+      :station_num => node_list[p].station_num, 
+      :station_name => node_list[p].station_name, 
+      :event_time => node_list[p].event_time,
+      :original_event_time => node_list[p].original_event_time
+    )
+  end
+  puts "Node table size is #{Node.all.size}"
+end     
+
+def create_dwell_arcs
+  Arc.delete_all
+  puts "Populating dwell arcs"
+  # Join node list against Train Route
+  current_station_num = 0
+  previous_station_num = 0
+  from_node = 0
+  to_node = 0 
+  from_time = 0
+  to_time = 0
+  nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
+    "ON node_details.station_num = train_routes.station_num " +
+    "AND node_details.station_name = train_routes.station_name").
+    where("node_details.original_event_time = CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END " +
+     "AND train_routes.arrive_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm <> -1").
+    select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, train_routes.arrive_time_hhhmm as arrival_time, train_routes.depart_time_hhhmm as departure_time")
+    .order("node_details.station_num, node_details.station_name, node_details.event_time").all
+  nodes_with_train_routes.each do |t|
+      if current_station_num == 0 && previous_station_num == 0 
+        from_node = t.id
+        #logger.debug "From Node = #{from_node}"
+        previous_station_num = t.station_num
+        from_time = t.event_time
+        next
+      end
+      current_station_num = t.station_num
+      if current_station_num == previous_station_num
+        to_node = t.id
+        to_time = t.event_time
+        time_difference = to_time - from_time unless from_time.nil?
+        #logger.debug "From Node = #{from_node}, To Node = #{to_node}, Transit Time = #{time_difference}"
+        Arc.create(:arc_type => "Dwell", :from_node_id => from_node, :to_node_id => to_node, :transit_time => time_difference)
+        from_node = to_node
+        from_time = to_time
+      else
+        from_node = t.id
+        previous_station_num = current_station_num
+        from_time = t.event_time
+      end
+    end    
+  total_dwell_arcs = Arc.where(arc_type: "Dwell").size
+  puts "Total dwell arcs are #{total_dwell_arcs}"  
+end
+
+def create_train_arcs
+  puts "Populating train arcs"
+  current_train = 0
+  current_node = nil
+  previous_station_num = 0
+  from_node = 0
+  to_node = 0 
+  from_time = 0
+  to_time = 0
+  nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
+    "ON node_details.station_num = train_routes.station_num " +
+    "AND node_details.station_name = train_routes.station_name AND " +
+    "train_routes.depart_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm = node_details.original_event_time").
+    select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, " + 
+      "train_routes.train_number as train_number, train_routes.route_point_seq")
+    .order("train_routes.train_number, node_details.station_name, node_details.event_time")
+    .all
+  #logger.debug "Nodes with train data has #{nodes_with_train_routes.size} rows"  
+  nodes_with_train_routes.each do |t|
+    unless t.train_number.nil?
+      #logger.debug "Curent Node is #{t.train_number}" unless t.train_number.nil?
+      if current_train == t.train_number 
+        to_time = t.event_time
+        time_difference = (to_time - from_time).abs unless from_time.nil?
+        to_node = t.id
+        Arc.create(
+          :arc_type => "Train", 
+          :from_node_id => current_node, 
+          :to_node_id => to_node, 
+          :transit_time => time_difference,
+          :train_number => current_train
+        )
+      else
+        current_train = t.train_number 
+        from_time = t.event_time
+      end
+      current_node = t.id
+      from_time = t.event_time
+    end
+  end
+  total_train_arcs = Arc.where(arc_type: "Train").size
+  puts "Total train arcs are #{total_train_arcs}"  
+end
+  
+populate_trains if Train.nil?
+populate_train_routes if TrainRoute.nil?
+create_nodes if Node.nil? && NodeDetail.nil?
+create_dwell_arcs if Arc.nil? || Arc.where(arc_type: "Dwell").size.zero?
+create_train_arcs if Arc.nil? || Arc.where(arc_type: "Train").size.zero?
