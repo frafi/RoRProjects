@@ -1,3 +1,10 @@
 --- 
-open_files: []
-
+open_files: 
+  - db/seeds.rb
+  - lib/MyNode.rb
+  - lib/assets/TRAIN_ROUTE_small.txt
+  - app/views/home/show_itinerary.html.erb
+  - lib/OutboundArc.rb
+  - app/controllers/home_controller.rb
+  - lib/assets/TRAIN_ROUTE_smallest.txt
+  - app/views/home/index.html.erb
