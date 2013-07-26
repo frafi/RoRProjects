@@ -13,7 +13,7 @@ class HomeController < ApplicationController
     @itinerary_path = [] 
     candidate_starting_node = NodeDetail.order(:event_time).all(
       :conditions => ["station_num = ? AND event_time >= ?", start_station_num, depart_by_hhhmm]).first
-    #logger.debug "Candidate starting node #{candidate_starting_node.inspect}"
+    logger.debug "Candidate starting node #{candidate_starting_node.inspect}"
 
     si_found = false
     #logger.debug "Event times BEFORE #{@event_times[candidate_starting_node.id].inspect}" 
@@ -37,7 +37,10 @@ class HomeController < ApplicationController
     finish_node_id = 0
     si_found = false
     destination_found = false
-    logger.debug "Event times AFTER 1/1 #{@event_times.inspect}"      
+    event_times_after_candidate = @event_times.select do |x,y|
+      x >= candidate_starting_node.id
+    end
+    logger.debug "Event times AFTER 1/1 #{event_times_after_candidate.inspect}"      
     @event_times.each do |x,y|
       if x == candidate_starting_node.id
         si_found = true
@@ -208,6 +211,12 @@ begin
             current_node.sequence_num = nil
             current_node.outbound_arcs = []
             #logger.debug "Current node is #{current_node.inspect}"
+          else
+            current_node = @event_times[x.to_node_id]
+            current_node.event_time = x.event_time
+            current_node.station_num = x.to_station_num
+            current_node.station_name = x.to_station_name
+            current_node.original_event_time = x.original_event_time
           end         
           @event_times[x.to_node_id] = current_node
 end

@@ -181,7 +181,7 @@ end
   
 populate_trains "TRAIN_smallest" unless Train.exists?
 populate_train_routes "TRAIN_ROUTE_smallest" unless TrainRoute.exists?
-create_nodes 1 unless Node.exists? 
+create_nodes 21 unless Node.exists? 
 #&& NodeDetail.exists?)
 create_dwell_arcs #unless Arc.exists? || Arc.where(arc_type: "Dwell").size.zero?
 create_train_arcs #unless Arc.exists? || Arc.where(arc_type: "Train").size.zero?
