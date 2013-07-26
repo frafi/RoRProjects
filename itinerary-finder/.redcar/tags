@@ -1,4 +1,4 @@
-1374823589
+1374856175
 AcyclicSP	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	class AcyclicSP
 Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
 ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
@@ -63,7 +63,7 @@ create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/nodes_controller
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains_controller.rb	  def create
 create	/home/frafi/RoRProjects/itinerary-finder/app/controllers/train_routes_controller.rb	  def create
 create_dwell_arcs	/home/frafi/RoRProjects/itinerary-finder/db/seeds.rb	def create_dwell_arcs
-create_nodes	/home/frafi/RoRProjects/itinerary-finder/db/seeds.rb	def create_nodes
+create_nodes	/home/frafi/RoRProjects/itinerary-finder/db/seeds.rb	def create_nodes 
 create_outbound_arcs	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	  def self.create_outbound_arcs
 create_outbound_arcs	/home/frafi/RoRProjects/itinerary-finder/app/controllers/home_controller.rb	  def create_outbound_arcs
 create_train_arcs	/home/frafi/RoRProjects/itinerary-finder/db/seeds.rb	def create_train_arcs

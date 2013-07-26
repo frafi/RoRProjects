@@ -36,7 +36,7 @@ def populate_train_routes train_route_file
   puts "Added #{TrainRoute.all.count} records"
 end
 
-def create_nodes
+def create_nodes total_days
   puts "Populating nodes and node details"
   Node.delete_all
   NodeDetail.delete_all
@@ -46,7 +46,7 @@ def create_nodes
   TrainRoute.all(:include => :train).each do |tr|
     event_time = tr.arrive_time_hhhmm unless (tr.arrive_time_hhhmm == -1)
     event_time = tr.depart_time_hhhmm if event_time.nil? 
-    (1..21).each do |d|
+    (1..total_days).each do |d|
       schedule_index = 1 if (d == 15)
       schedule_index = d % 15 if schedule_index.nil?
       train_operating =  tr.train["operates_day_#{schedule_index}"] unless tr.train.nil?
@@ -66,7 +66,7 @@ def create_nodes
     end
   end
   #puts "Node list size is #{node_list.inspect}"
-  node_list.keys.sort.each do |p|
+  node_list.keys.each do |p|
     Node.create(:station_num => node_list[p].station_num, :event_time => node_list[p].event_time)
     NodeDetail.create(
       :station_num => node_list[p].station_num, 
@@ -92,7 +92,7 @@ def create_dwell_arcs
     "ON node_details.station_num = train_routes.station_num AND original_event_time = " +
     "CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END " +
     "AND node_details.station_name = train_routes.station_name " +
-    "AND NOT (train_routes.arrive_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm <> -1)").
+    "AND NOT (train_routes.arrive_time_hhhmm = -1 AND train_routes.depart_time_hhhmm = -1)").
     select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, train_routes.arrive_time_hhhmm as arrival_time, train_routes.depart_time_hhhmm as departure_time")
     .order("node_details.station_num, node_details.station_name, node_details.event_time")
     .group("node_details.station_num, node_details.station_name, node_details.event_time")
@@ -143,10 +143,10 @@ def create_train_arcs
   from_time = 0
   to_time = 0
   nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
-    "ON node_details.station_num = train_routes.station_num AND original_event_time = " +
+    "ON node_details.station_num = train_routes.station_num AND node_details.original_event_time = " +
     "CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END " +
     "AND node_details.station_name = train_routes.station_name AND " +
-    "train_routes.depart_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm = node_details.original_event_time").
+    "NOT (train_routes.arrive_time_hhhmm = -1 AND train_routes.depart_time_hhhmm = -1)").
     select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, " + 
       "train_routes.train_number as train_number, train_routes.route_point_seq")
     .order("node_details.event_time, train_routes.train_number, train_routes.route_point_seq")
@@ -179,9 +179,9 @@ def create_train_arcs
   puts "Total train arcs are #{total_train_arcs}"  
 end
   
-populate_trains "TRAIN_small" unless Train.exists?
-populate_train_routes "TRAIN_ROUTE_small" unless TrainRoute.exists?
-create_nodes unless Node.exists? 
+populate_trains "TRAIN_smallest" unless Train.exists?
+populate_train_routes "TRAIN_ROUTE_smallest" unless TrainRoute.exists?
+create_nodes 1 unless Node.exists? 
 #&& NodeDetail.exists?)
 create_dwell_arcs #unless Arc.exists? || Arc.where(arc_type: "Dwell").size.zero?
 create_train_arcs #unless Arc.exists? || Arc.where(arc_type: "Train").size.zero?

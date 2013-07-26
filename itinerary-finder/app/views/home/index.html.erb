@@ -10,7 +10,7 @@
     <td><%= collection_select(:end_station, :station_num, TrainRoute.all(:order => "station_num ASC", :group => 'station_num'), :station_num, :station_num, :prompt => "Select destination") %></td>
   </tr>
   <tr>
-    <th class="myHeading">Arrival time</th>
+    <th class="myHeading">Depart time</th>
     <td><%= text_field_tag(:reach_by) %></td>
   </tr>
 </table>

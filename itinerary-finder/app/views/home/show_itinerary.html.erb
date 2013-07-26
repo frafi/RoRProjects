@@ -1,5 +1,8 @@
 <h1>Itinerary</h1>
 
+<%= "No itinerary available for specified source, destination and departure time" if @itinerary_path.empty? %>
+
+<% unless @itinerary_path.empty? %>
 <table border="1">
   <tr>
     <th>Arc Type</th>
@@ -24,3 +27,4 @@
   </tr>
   <% end %>
 </table>
+<% end %>

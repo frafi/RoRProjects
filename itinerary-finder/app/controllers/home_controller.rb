@@ -8,11 +8,11 @@ class HomeController < ApplicationController
   def index
   end
 
-  def calculate_path start_station_num, end_station_num, reach_by_hhhmm
+  def calculate_path start_station_num, end_station_num, depart_by_hhhmm
     #find_node_by_station 70550
     @itinerary_path = [] 
     candidate_starting_node = NodeDetail.order(:event_time).all(
-      :conditions => ["station_num = ? AND event_time >= ?", start_station_num, reach_by_hhhmm]).first
+      :conditions => ["station_num = ? AND event_time >= ?", start_station_num, depart_by_hhhmm]).first
     #logger.debug "Candidate starting node #{candidate_starting_node.inspect}"
 
     si_found = false
@@ -21,16 +21,12 @@ class HomeController < ApplicationController
       if x == candidate_starting_node.id 
         si_found = true
         # set total cost to 0
-        #logger.debug "BEFORE:Set total cost of node #{x} to 0. Rest is #{y.inspect}"
         y.total_cost = 0
-        #logger.debug "AFTER:Set total cost of node #{x} to 0. Rest is #{y.inspect}"
         next
       end
       if si_found
         #set total cost to MAX
-        #logger.debug "BEFORE:Set total cost of node #{x} to Max integer. Rest is #{y.inspect}"
         y.total_cost = Float::INFINITY
-        #logger.debug "AFTER:Set total cost of node #{x} to Max integer. Rest is #{y.inspect}"
       #else
         #continue
       end
@@ -67,7 +63,7 @@ class HomeController < ApplicationController
           total_cost_of_to_node = @event_times[arc_destination_node_id].total_cost unless @event_times[arc_destination_node_id].total_cost.nil? 
           
           unless total_cost_of_to_node.nil?
-            #logger.debug "CALC: Found item POST-AFTER 2/2bb #{k.inspect} and #{total_cost_of_to_node}" unless total_cost_of_to_node.nil?
+          logger.debug "CALC: Found item POST-AFTER 2/2bb #{k.inspect} and #{total_cost_of_to_node}" unless total_cost_of_to_node.nil?
           if y.total_cost + k.transit_time < total_cost_of_to_node
              @event_times[arc_destination_node_id].predecessor = x
              @event_times[arc_destination_node_id].total_cost = y.total_cost + k.transit_time 
@@ -143,7 +139,7 @@ class HomeController < ApplicationController
           "N1.event_time, N1.original_event_time, N2.station_name as to_station_name, N2.station_num as to_station_num")
         .order("arcs.from_node_id").group("arcs.from_node_id")
               
-      #logger.debug "Got arcs is #{arcs_with_nodes.count}"
+      #logger.debug "Got arcs is #{arcs_with_nodes.inspect}"
       # Group all arcs by from_node
       @event_times = {}
       #arcs_with_nodes.order("from_node_id").group(:from_node_id).each do |x|
@@ -153,6 +149,7 @@ class HomeController < ApplicationController
       train_arcs = 0
       arcs_with_nodes.each do |x|
         #logger.debug "Arcs is #{x.from_node_id}"
+        #unless x.from_node_id.nil? && x.to_node_id.nil?
         unless x.from_node_id.nil?
           if @event_times.has_key? x.from_node_id
             # Create new outbound arc object and add it to outbound arcs list of existing value
@@ -194,6 +191,26 @@ class HomeController < ApplicationController
           end
           arc_id = arc_id + 1
           @event_times[x.from_node_id] = current_node
+begin          
+          # Do the same for to node as well
+            # Create new outbound arc object and add it to outbound arcs list of existing value
+          unless @event_times.has_key? x.to_node_id
+            #logger.debug "Creating new node for #{x.from_node_id}"
+            current_node = MyNode.new
+            current_node.node_id = x.to_node_id
+            current_node.event_time = x.event_time
+            current_node.station_num = x.to_station_num
+            current_node.station_name = x.to_station_name
+            current_node.original_event_time = x.original_event_time
+            current_node.predecessor = nil
+            current_node.total_cost = 0
+            current_node.start_index = nil
+            current_node.sequence_num = nil
+            current_node.outbound_arcs = []
+            #logger.debug "Current node is #{current_node.inspect}"
+          end         
+          @event_times[x.to_node_id] = current_node
+end
         end
       end
         # Now sort the event times
