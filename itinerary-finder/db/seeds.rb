@@ -1,9 +1,9 @@
 require "MyNode"
 
-def populate_trains
+def populate_trains train_file
   puts "Populating Train table"
   Train.delete_all
-  File.open("lib/assets/TRAIN.txt", "r").each do |f|
+  File.open("lib/assets/#{train_file}.txt", "r").each do |f|
     train_number, loop_id, category, day_1, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9, day_10, day_11, day_12, day_13, day_14 = f.chomp.split("|")
     Train.create(
       :id => train_number,
@@ -19,10 +19,10 @@ def populate_trains
   puts "Added #{Train.all.count} records"
 end
 
-def populate_train_routes
+def populate_train_routes train_route_file
   puts "Now populating Train Routes"
   TrainRoute.delete_all
-  File.open("lib/assets/TRAIN_ROUTE.txt", "r").each do |f|
+  File.open("lib/assets/#{train_route_file}.txt", "r").each do |f|
     train_number, point_seq, station_num, station_name, arrive_time, depart_time = f.chomp.split("|")
     TrainRoute.create(
       :train_number => train_number, 
@@ -54,12 +54,18 @@ def create_nodes
         computed_minutes = event_time + ((d-1) * 1440)
         computed_hhhmm = "#{(computed_minutes/60).to_s.rjust(3,"0")}#{(computed_minutes % 60).to_s.rjust(2,"0")}"
         node_key = "#{tr.station_num.to_s.rjust(5,"0")}#{computed_minutes.to_s.rjust(6,"0")}"
-        new_node = MyNode.new node_id, computed_minutes, tr.station_num, tr.station_name, event_time
+        new_node = MyNode.new
+        new_node.node_id = node_id
+        new_node.event_time = computed_minutes
+        new_node.station_num = tr.station_num
+        new_node.station_name = tr.station_name
+        new_node.original_event_time = event_time
         node_list[node_key] = new_node      
         node_id =+ 1
       end
     end
   end
+  #puts "Node list size is #{node_list.inspect}"
   node_list.keys.sort.each do |p|
     Node.create(:station_num => node_list[p].station_num, :event_time => node_list[p].event_time)
     NodeDetail.create(
@@ -83,13 +89,24 @@ def create_dwell_arcs
   from_time = 0
   to_time = 0
   nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
+    "ON node_details.station_num = train_routes.station_num AND original_event_time = " +
+    "CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END " +
+    "AND node_details.station_name = train_routes.station_name " +
+    "AND NOT (train_routes.arrive_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm <> -1)").
+    select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, train_routes.arrive_time_hhhmm as arrival_time, train_routes.depart_time_hhhmm as departure_time")
+    .order("node_details.station_num, node_details.station_name, node_details.event_time")
+    .group("node_details.station_num, node_details.station_name, node_details.event_time")
+
+=begin    
+  nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
     "ON node_details.station_num = train_routes.station_num " +
     "AND node_details.station_name = train_routes.station_name").
     where("node_details.original_event_time = CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END " +
      "AND train_routes.arrive_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm <> -1").
     select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, train_routes.arrive_time_hhhmm as arrival_time, train_routes.depart_time_hhhmm as departure_time")
     .order("node_details.station_num, node_details.station_name, node_details.event_time").all
-  nodes_with_train_routes.each do |t|
+=end
+    nodes_with_train_routes.each do |t|
       if current_station_num == 0 && previous_station_num == 0 
         from_node = t.id
         #logger.debug "From Node = #{from_node}"
@@ -126,12 +143,14 @@ def create_train_arcs
   from_time = 0
   to_time = 0
   nodes_with_train_routes = NodeDetail.joins("INNER JOIN train_routes " +
-    "ON node_details.station_num = train_routes.station_num " +
+    "ON node_details.station_num = train_routes.station_num AND original_event_time = " +
+    "CASE WHEN train_routes.arrive_time_hhhmm = -1 THEN train_routes.depart_time_hhhmm ELSE train_routes.arrive_time_hhhmm END " +
     "AND node_details.station_name = train_routes.station_name AND " +
     "train_routes.depart_time_hhhmm <> -1 AND train_routes.depart_time_hhhmm = node_details.original_event_time").
     select("node_details.station_num, node_details.station_name, node_details.event_time, node_details.id, " + 
       "train_routes.train_number as train_number, train_routes.route_point_seq")
-    .order("train_routes.train_number, node_details.station_name, node_details.event_time")
+    .order("node_details.event_time, train_routes.train_number, train_routes.route_point_seq")
+    .group("node_details.station_num, node_details.station_name, node_details.event_time")
     .all
   #logger.debug "Nodes with train data has #{nodes_with_train_routes.size} rows"  
   nodes_with_train_routes.each do |t|
@@ -160,8 +179,9 @@ def create_train_arcs
   puts "Total train arcs are #{total_train_arcs}"  
 end
   
-populate_trains if Train.nil?
-populate_train_routes if TrainRoute.nil?
-create_nodes if Node.nil? && NodeDetail.nil?
-create_dwell_arcs if Arc.nil? || Arc.where(arc_type: "Dwell").size.zero?
-create_train_arcs if Arc.nil? || Arc.where(arc_type: "Train").size.zero?
+populate_trains "TRAIN_small" unless Train.exists?
+populate_train_routes "TRAIN_ROUTE_small" unless TrainRoute.exists?
+create_nodes unless Node.exists? 
+#&& NodeDetail.exists?)
+create_dwell_arcs #unless Arc.exists? || Arc.where(arc_type: "Dwell").size.zero?
+create_train_arcs #unless Arc.exists? || Arc.where(arc_type: "Train").size.zero?

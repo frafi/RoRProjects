@@ -1,17 +1,26 @@
 <h1>Itinerary</h1>
-<% @event_times.inspect %>
 
-<table>
+<table border="1">
   <tr>
-    <th>Title</th>
-    <th>Summary</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Arc Type</th>
+    <th>From Station Num</th>
+    <th>To Station Num</th>
+    <th>Depart Time</th>
+    <th>Arrive Time</th>
+    <th>Transit Time</th>
+    <th>Dwell Time</th>
   </tr>
  
-
+  <% @itinerary_path.each do |t| %>
+    
   <tr>
-    <td><% @itinerary_path.length unless @itinerary_path.nil? %></td>
+    <td><%= t.arc_type %></td>
+    <td><%= t.from_station_num %></td>
+    <td><%= t.to_station_num %></td>
+    <td><%= t.depart_time %></td>
+    <td><%= t.depart_time + t.transit_time  %></td>
+    <td><%= t.transit_time %></td>
+    <td><%= t.arc_type %></td>
   </tr>
+  <% end %>
 </table>

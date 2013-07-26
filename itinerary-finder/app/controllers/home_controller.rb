@@ -10,7 +10,7 @@ class HomeController < ApplicationController
 
   def calculate_path start_station_num, end_station_num, reach_by_hhhmm
     #find_node_by_station 70550
-    @tinerary_path = [] 
+    @itinerary_path = [] 
     candidate_starting_node = NodeDetail.order(:event_time).all(
       :conditions => ["station_num = ? AND event_time >= ?", start_station_num, reach_by_hhhmm]).first
     #logger.debug "Candidate starting node #{candidate_starting_node.inspect}"
@@ -31,42 +31,59 @@ class HomeController < ApplicationController
         #logger.debug "BEFORE:Set total cost of node #{x} to Max integer. Rest is #{y.inspect}"
         y.total_cost = Float::INFINITY
         #logger.debug "AFTER:Set total cost of node #{x} to Max integer. Rest is #{y.inspect}"
+      #else
+        #continue
       end
     end
-    #logger.debug "Event times AFTER #{@event_times[candidate_starting_node.id].inspect}"  
-    #logger.debug "Event times AFTER #{@event_times.inspect}"  
+    #logger.debug "Event times AFTER 0/1 #{@event_times[candidate_starting_node.id].inspect}"  
     
     break_code = false
     finish_node_id = 0
     si_found = false
     destination_found = false
+    logger.debug "Event times AFTER 1/1 #{@event_times.inspect}"      
     @event_times.each do |x,y|
       if x == candidate_starting_node.id
         si_found = true
       end
       if si_found
-        #logger.debug "CALC: Found item BEFORE #{y.inspect} while end station is #{end_station_num}"
-        unless y.predecessor.nil? 
-          if y.station_num == end_station_num 
+        logger.debug "CALC: Found item BEFORE #{y.station_num}, predecessor #{y.predecessor} while end station is #{end_station_num}"
+        if !y.predecessor.nil? && y.station_num.to_i == end_station_num.to_i
+            #logger.debug "CALC: Found item AFTER 1/2 #{y.inspect} while end station is #{end_station_num}"
             finish_node_id = x
             destination_found = true
+            logger.debug "CALC: Found item AFTER 2/2 #{y.inspect} while end station is #{end_station_num}"
             break
-          end
         end
-        if y.total_cost == Float::INFINITY
-          continue
-        end
-        y.outbound_arcs.each do |j,k|
-          total_cost_of_to_node = @event_times[k.to_node].total_cost
+        if y.total_cost != Float::INFINITY
+          #continue
+        logger.debug "CALC: Found item POST-AFTER 1/2 #{y.outbound_arcs.inspect}"
+        y.outbound_arcs.each do |k|
+          #logger.debug "CALC: Found item POST-AFTER 2/2 #{k.inspect} and #{total_cost_of_to_node}"
+          arc_destination_node_id = k.to_node
+          #logger.debug "CALC: Found item POST-AFTER 2/2a" if @event_times.has_key? arc_destination_node_id
+          #next_node =  @event_times[arc_destination_node_id] 
+          #logger.debug "CALC: Found item POST-AFTER 2/2b #{@event_times[arc_destination_node_id].inspect}"
+          total_cost_of_to_node = @event_times[arc_destination_node_id].total_cost unless @event_times[arc_destination_node_id].total_cost.nil? 
+          
+          unless total_cost_of_to_node.nil?
+            #logger.debug "CALC: Found item POST-AFTER 2/2bb #{k.inspect} and #{total_cost_of_to_node}" unless total_cost_of_to_node.nil?
           if y.total_cost + k.transit_time < total_cost_of_to_node
-             @event_times[k.to_node].predecessor = x
-             @event_times[k.to_node].total_cost = y.total_cost + k.transit_time 
+             @event_times[arc_destination_node_id].predecessor = x
+             @event_times[arc_destination_node_id].total_cost = y.total_cost + k.transit_time 
+             #@event_times[arc_destination_node_id].from_station_name = y.station_name.to_s
+             logger.debug "CALC: Updated predecessor and cost for #{@event_times[arc_destination_node_id].inspect} "
+          end
+          end
           end
         end
+        
+      #else
+        #continue
       end
     end
     if destination_found 
-      logger.debug "Found destination" 
+      logger.debug "Destination found #{finish_node_id}" 
     end
       
     unless finish_node_id == 0
@@ -75,20 +92,20 @@ class HomeController < ApplicationController
         until current_predecessor_id.nil?
           # get predecessor's outbound arcs'
           predecessor_node = @event_times[current_predecessor_id]
-          predecessor_node.outbound_arcs.each do |p,k|
-            if k.to_node == finish_node_id
-               @tinerary_path << k
+          predecessor_node.outbound_arcs.each do |p|
+            if p.to_node.to_i == finish_node_id.to_i
+               @itinerary_path << p
             end
-            if k.arc_type == "Dwell"
-               @tinerary_path << k
+            if p.arc_type == "Dwell"
+               @itinerary_path << p
             end            
           end
           finish_node_id = current_predecessor_id
           current_predecessor_id = @event_times[finish_node_id].predecessor
         end
       end
-      @tinerary_path = @tinerary_path.reverse unless @tinerary_path.empty?
-      logger.debug "Final iterianry is #{@tinerary_path.inspect}"
+      @itinerary_path = @itinerary_path.reverse unless @itinerary_path.empty?
+      logger.debug "Final iterianry is #{@itinerary_path.inspect}"
     end
 
 =begin    
@@ -119,20 +136,22 @@ class HomeController < ApplicationController
   
   def create_outbound_arcs
     #logger.debug "Populating train arcs"
-    if @event_times.nil?
-      arcs_with_nodes = Arc.joins("LEFT OUTER JOIN node_details ON from_node_id = node_details.id ")
+    #if @event_times.nil?
+      arcs_with_nodes = Arc.joins("INNER JOIN node_details N1 ON from_node_id = N1.id INNER JOIN node_details N2 ON to_node_id = N2.id ")
         .select("arcs.arc_type, arcs.from_node_id, arcs.to_node_id, arcs.transit_time, " +
-          "arcs.train_number, node_details.station_num, node_details.station_name, " +
-          "node_details.event_time, node_details.original_event_time")
-        .order("arcs.from_node_id")
+          "arcs.train_number, N1.station_num as from_station_num, N1.station_name as from_station_name, " +
+          "N1.event_time, N1.original_event_time, N2.station_name as to_station_name, N2.station_num as to_station_num")
+        .order("arcs.from_node_id").group("arcs.from_node_id")
               
-      logger.debug "Got arcs is #{arcs_with_nodes.count}"
+      #logger.debug "Got arcs is #{arcs_with_nodes.count}"
       # Group all arcs by from_node
       @event_times = {}
       #arcs_with_nodes.order("from_node_id").group(:from_node_id).each do |x|
       #urrent_node = nil
       arc_id = 1
-      arcs_with_nodes.order("from_node_id").each do |x|
+      dwell_arcs = 0
+      train_arcs = 0
+      arcs_with_nodes.each do |x|
         #logger.debug "Arcs is #{x.from_node_id}"
         unless x.from_node_id.nil?
           if @event_times.has_key? x.from_node_id
@@ -143,14 +162,14 @@ class HomeController < ApplicationController
             current_node = MyNode.new
             current_node.node_id = x.from_node_id
             current_node.event_time = x.event_time
-            current_node.station_num = x.station_num
-            current_node.station_name = x.station_name
+            current_node.station_num = x.from_station_num
+            current_node.station_name = x.from_station_name
             current_node.original_event_time = x.original_event_time
             current_node.predecessor = nil
-            current_node.total_cost = nil
+            current_node.total_cost = 0
             current_node.start_index = nil
             current_node.sequence_num = nil
-            current_node.outbound_arcs = {}
+            current_node.outbound_arcs = []
             #logger.debug "Current node is #{current_node.inspect}"
           end         
           current_outbound_arc = OutboundArc.new
@@ -163,8 +182,16 @@ class HomeController < ApplicationController
           current_outbound_arc.to_node = x.to_node_id
           current_outbound_arc.arc_type = x.arc_type
           current_outbound_arc.train_id = x.train_number
+          current_outbound_arc.from_station_num = x.from_station_num
+          current_outbound_arc.to_station_num = x.to_station_num
+          current_outbound_arc.depart_time = x.event_time
           #logger.debug "Current arc is #{current_outbound_arc.inspect}"
-          current_node.outbound_arcs[x.event_time] = current_outbound_arc
+          current_node.outbound_arcs << current_outbound_arc
+          if x.arc_type.eql? "Dwell"
+            dwell_arcs = dwell_arcs + 1
+          else
+            train_arcs = train_arcs + 1
+          end
           arc_id = arc_id + 1
           @event_times[x.from_node_id] = current_node
         end
@@ -173,8 +200,8 @@ class HomeController < ApplicationController
       #@event_times.each do |x,y| 
       #  y[2..-1].sort_by { |u| u[0] }
       #end
-      #logger.debug "All Event times are #{@event_times.inspect}"
-    end
+      logger.debug "All outbound arcs in Event times are #{train_arcs+dwell_arcs} whereas dwell arcs are #{dwell_arcs}"
+    #end
   end
    
   def show_itinerary
