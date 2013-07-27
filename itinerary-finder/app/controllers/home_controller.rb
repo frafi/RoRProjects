@@ -27,10 +27,71 @@ class HomeController < ApplicationController
     finish_node_id = 0
     si_found = false
     destination_found = false
-    #event_times_after_candidate = @event_times.select do |x,y|
-    #  x >= candidate_starting_node.id
-    #end
-    #logger.debug "Event times AFTER 1/1 #{@event_times.keys.inspect}"
+=begin
+    event_times_after_candidate = @event_times.select do |x,y|
+      x.to_i >= candidate_starting_node.id.to_i
+    end
+    #logger.debug "Event times AFTER 1/1a #{event_times_after_candidate.inspect}"
+    event_times_after_candidate_sorted = @event_times.sort_by do |x,y|
+      x.to_i
+    end
+    #logger.debug "Event times AFTER 1/1b #{event_times_after_candidate_sorted.inspect}"
+
+    event_times_after_candidate_sorted.each do |x,y|
+      if x == candidate_starting_node.id
+        si_found = true
+      end
+      if si_found
+        logger.debug "CALC: Found item Node #{x}, BEFORE #{y.station_num}, predecessor #{y.predecessor} while end station is #{end_station_num}"
+        if !y.predecessor.nil? && y.station_num.to_i == end_station_num.to_i
+          finish_node_id = x
+          destination_found = true
+          logger.debug "CALC: Found item AFTER 2/2 #{y.inspect} while end station is #{end_station_num}"
+          break
+        end
+        if y.total_cost != Float::INFINITY
+          logger.debug "CALC: Found item POST-AFTER 1/2 #{y.outbound_arcs.inspect}"
+          y.outbound_arcs.each do |k|
+            #logger.debug "CALC: Found item POST-AFTER 2/2 #{k.inspect} and #{total_cost_of_to_node}"
+            if k.arc_type != "Dwell" && k.from_station_num.to_i != k.to_station_num.to_i
+              arc_destination_node_id = k.to_node
+              logger.debug "THis node is #{event_times_after_candidate_sorted[arc_destination_node_id].inspect}"
+              total_cost_of_to_node = event_times_after_candidate_sorted[arc_destination_node_id].total_cost unless event_times_after_candidate_sorted[arc_destination_node_id].total_cost.nil?
+              logger.debug "total cost of to node = #{total_cost_of_to_node}"
+              unless total_cost_of_to_node.nil?
+                logger.debug "CALC: Found item POST-AFTER 2/2bb #{k.inspect} and #{total_cost_of_to_node}" unless total_cost_of_to_node.nil?
+                if y.total_cost + k.transit_time < total_cost_of_to_node
+                  event_times_after_candidate_sorted[arc_destination_node_id].predecessor = x
+                  event_times_after_candidate_sorted[arc_destination_node_id].total_cost = y.total_cost + k.transit_time
+                  logger.debug "CALC: Updated predecessor and cost for #{event_times_after_candidate_sorted[arc_destination_node_id].inspect} "
+                end
+              end
+            end
+          end # finish processing all outbound arcs
+        end # ignoring all unreachable nodes
+
+      end
+    end
+
+    unless finish_node_id == 0
+      if destination_found
+        current_predecessor_id = event_times_after_candidate_sorted[finish_node_id].predecessor
+        until current_predecessor_id.nil?
+          event_times_after_candidate_sorted[current_predecessor_id].outbound_arcs.each do |p|
+            #@itinerary_path << p if p.arc_type == "Dwell"
+            event_times_after_candidate_sorted << p if p.to_node.to_i == finish_node_id.to_i
+          end
+          finish_node_id = current_predecessor_id
+          current_predecessor_id = event_times_after_candidate_sorted[finish_node_id].predecessor
+        end
+      end
+      @itinerary_path = @itinerary_path.reverse unless @itinerary_path.empty?
+      if @itinerary_path.last.arc_type == "Dwell"
+        @itinerary_path.pop
+      end
+    end
+=end
+#begin
     @event_times.sort.each do |x,y|
       if x == candidate_starting_node.id
         si_found = true
@@ -76,10 +137,11 @@ class HomeController < ApplicationController
         end
       end
       @itinerary_path = @itinerary_path.reverse unless @itinerary_path.empty?
-      if @itinerary_path.last.arc_type == "Dwell"
-        @itinerary_path.pop
-      end
+      #if @itinerary_path.last.arc_type == "Dwell"
+      #  @itinerary_path.pop
+      #end
     end
+#end
   end
 
   def create_outbound_arcs

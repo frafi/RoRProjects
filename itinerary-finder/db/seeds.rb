@@ -211,9 +211,9 @@ def adjust_next_day_arcs
   end
 end
 
-populate_trains "TRAIN_small" unless Train.exists?
-populate_train_routes "TRAIN_ROUTE_small" unless TrainRoute.exists?
-create_nodes 2 unless (Node.exists? && NodeDetail.exists?)
+populate_trains "TRAIN" unless Train.exists?
+populate_train_routes "TRAIN_ROUTE" unless TrainRoute.exists?
+create_nodes 21 unless (Node.exists? && NodeDetail.exists?)
 create_train_arcs #unless Arc.exists? || Arc.where(arc_type: "Train").size.zero?
 create_dwell_arcs #unless Arc.exists? || Arc.where(arc_type: "Dwell").size.zero?
 #adjust_next_day_arcs
