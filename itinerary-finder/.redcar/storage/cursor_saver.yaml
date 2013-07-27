@@ -143,9 +143,6 @@ cursor_positions:
     :timestamp: 2013-07-14 17:57:14 -04:00
     :selection_offset: 990
     :block_selection_mode: false
-  - :path: db/seeds.rb
-    :cursor_offset: 7911
-    :timestamp: 2013-07-26 12:31:55 -04:00
   - :path: lib/MyNode.rb
     :cursor_offset: 83
     :timestamp: 2013-07-24 00:47:10 -04:00
@@ -171,4 +168,7 @@ cursor_positions:
   - :path: app/views/home/index.html.erb
     :cursor_offset: 725
     :timestamp: 2013-07-26 12:25:22 -04:00
+  - :path: db/seeds.rb
+    :cursor_offset: 8492
+    :timestamp: 2013-07-26 23:11:18 -04:00
 files_to_retain: 0

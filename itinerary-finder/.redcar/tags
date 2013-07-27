@@ -1,4 +1,4 @@
-1374859960
+1374906726
 AcyclicSP	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	class AcyclicSP
 Application	/home/frafi/RoRProjects/itinerary-finder/config/application.rb	  class Application 
 ApplicationController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/application_controller.rb	class ApplicationController 
@@ -47,6 +47,7 @@ TrainsController	/home/frafi/RoRProjects/itinerary-finder/app/controllers/trains
 TrainsControllerTest	/home/frafi/RoRProjects/itinerary-finder/test/functional/trains_controller_test.rb	class TrainsControllerTest 
 TrainsHelper	/home/frafi/RoRProjects/itinerary-finder/app/helpers/trains_helper.rb	module TrainsHelper
 TrainsHelperTest	/home/frafi/RoRProjects/itinerary-finder/test/unit/helpers/trains_helper_test.rb	class TrainsHelperTest 
+adjust_next_day_arcs	/home/frafi/RoRProjects/itinerary-finder/db/seeds.rb	def adjust_next_day_arcs
 arc_id	/home/frafi/RoRProjects/itinerary-finder/lib/OutboundArc.rb	  attr_accessor :arc_id, :cost, :transit_time, :time_difference, :from_node, :to_node, :arc_type, :train_id, :from_station_num, :to_station_num, :depart_time
 arc_type	/home/frafi/RoRProjects/itinerary-finder/lib/OutboundArc.rb	  attr_accessor :arc_id, :cost, :transit_time, :time_difference, :from_node, :to_node, :arc_type, :train_id, :from_station_num, :to_station_num, :depart_time
 calculate_path	/home/frafi/RoRProjects/itinerary-finder/lib/AcyclicSP.rb	  def self.calculate_path 

@@ -1,5 +1,12 @@
 <h1>Itinerary</h1>
 
+<table border="0" width="30%">
+  <tr>
+    <th>From</th><td><%= params[:start_station][:station_num] %></td>
+    <th>To</th><td><%= params[:end_station][:station_num] %></td>
+  </tr>
+
+
 <%= "No itinerary available for specified source, destination and departure time" if @itinerary_path.empty? %>
 
 <% unless @itinerary_path.empty? %>
@@ -11,20 +18,25 @@
     <th>Depart Time</th>
     <th>Arrive Time</th>
     <th>Transit Time</th>
-    <th>Dwell Time</th>
+    <!--<th>Dwell Time</th>-->
   </tr>
  
-  <% @itinerary_path.each do |t| %>
+  <%
+    itinerary_index = 0
+    @itinerary_path.each do |t| 
+  %>
     
   <tr>
     <td><%= t.arc_type %></td>
     <td><%= t.from_station_num %></td>
     <td><%= t.to_station_num %></td>
-    <td><%= t.depart_time %></td>
-    <td><%= t.depart_time + t.transit_time  %></td>
-    <td><%= t.transit_time %></td>
-    <td><%= t.arc_type %></td>
+    <td><%= t.arc_type == "Train" ? t.depart_time : "" %></td>
+    <td><%= t.arc_type == "Train" ? t.depart_time + t.transit_time  : "" %></td>
+    <td><%= t.transit_time  %></td>
   </tr>
-  <% end %>
+  <%
+    itinerary_index = itinerary_index + 1
+    end 
+  %>
 </table>
 <% end %>
